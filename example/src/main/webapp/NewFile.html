@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>WebSockets</title>
+<script type="text/javascript">
+
+	var soc = new WebSocket("ws://localhost:8090/webserv/servl");
+	var temp = document.getElementById("par");
+	var ta = document.getElementById("t").innerHTML;
+	
+	soc.onopen = function(message){
+		temp.innerHTML="connected";
+	}
+	
+	soc.onclose = function(message){
+		temp.innerHTML="disconnected";
+	}
+	
+	soc.onerror = function(message){
+		temp.innerHTML="error";
+	}
+	
+	soc.onmessage = function(message){
+		temp.innerHTML = message;
+	}
+	
+	function fun(){
+		soc.send(ta);
+		ta="";
+	}
+	
+
+</script>
+</head>
+<body>
+
+	<input type="text" id="t">
+	<input type="submit" value="send" onclick="fun1()">
+
+
+<p id="par">content changes here</p>
+</body>
+
+</html>
